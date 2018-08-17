@@ -1,6 +1,6 @@
 {
   "name": "videojs-generate-postcss-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate a standard postcss config, so that plugins don't need the same script in every repository.",
   "main": "index.js",
   "scripts": {
