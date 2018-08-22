@@ -16,21 +16,15 @@ const getSettings = function(options) {
     // inlines local file imports
     require('postcss-import')(),
 
-    // allows you to use newer css features, by converting
-    // them into something browsers can support now.
-    // see https://preset-env.cssdb.org/features
-    // by default we use stage 3+
-    require('postcss-preset-env')({
-      browsers: settings.browserslist,
-      stage: false,
-      features: {
-        // turn `var(xyz)` into the actual value
-        'custom-properties': {preserve: false, warnings: true},
+    // allow nested rules
+    require('postcss-nesting')(),
 
-        // flatten nested rules
-        'nesting-rules': true
-      }
-    }),
+    // allow custom properties, aka variables
+    require('postcss-custom-properties')({preserve: false}),
+
+    // allow calculations to be static values
+    // included after vars are inlined
+    require('postcss-calc')(),
 
     // adds a banner to the top of the file
     require('postcss-banner')({important: true, inline: true, banner: settings.banner}),
@@ -39,12 +33,7 @@ const getSettings = function(options) {
     require('autoprefixer')(settings.browserslist),
 
     // minify
-    require('cssnano')({
-      safe: true,
-      preset: ['default', {
-        autoprefixer: settings.browserslist
-      }]
-    }),
+    require('postcss-csso')(),
 
     progress.stop()
   ];
