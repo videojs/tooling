@@ -1,3 +1,10 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/videojs/videojs-generate-postcss-config/compare/v2.0.0...v2.0.1) (2018-08-22)
+
+### Bug Fixes
+
+* move postcss-calc to dev dependencies ([85e7ae7](https://github.com/videojs/videojs-generate-postcss-config/commit/85e7ae7))
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/videojs/videojs-generate-postcss-config/compare/v1.0.1...v2.0.0) (2018-08-22)
 
