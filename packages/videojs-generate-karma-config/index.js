@@ -102,7 +102,22 @@ module.exports = function(config) {
       captureTimeout: 600,
       timeout: 600
     },
-    reporters: ['dots'],
+    reporters: ['dots', 'coverage'],
+    coverageReporter: {
+      reporters: [
+        // generates test/dist/coverage/index.html
+        {type: 'html', dir: '.', subdir: 'test/dist/coverage'},
+
+        // generates test/dist/coverage/lcov.info
+        {type: 'lcovonly', dir: '.', subdir: 'test/dist/coverage'},
+
+        // generates test/dist/coverage-final.json
+        {type: 'json', dir: '.', subdir: 'test/dist/coverage'},
+
+        // show a text summary on the command line
+        {type: 'text', dir: '.', subdir: 'test/dist/coverage', file: 'text.txt'}
+      ]
+    },
     files: [
       'node_modules/video.js/dist/video-js.css',
       'dist/*.css',

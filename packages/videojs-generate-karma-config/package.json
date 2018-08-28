@@ -33,14 +33,15 @@
   },
   "homepage": "https://github.com/videojs/videojs-generate-karma-config",
   "dependencies": {
-    "karma-static-server": "^1.0.0",
     "karma-browserstack-launcher": "^1.3.0",
     "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
     "karma-detect-browsers": "^2.2.6",
     "karma-firefox-launcher": "^1.1.0",
     "karma-ie-launcher": "^1.0.0",
     "karma-qunit": "^2.0.0",
     "karma-safari-launcher": "^1.0.0",
+    "karma-static-server": "^1.0.0",
     "karma-teamcity-reporter": "^1.1.0",
     "qunit": "^2.6.1"
   },

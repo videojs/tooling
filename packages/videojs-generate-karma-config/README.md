@@ -20,6 +20,10 @@ Maintenance Status: Stable
 **Table of Contents**
 
 - [Installation](#installation)
+- [Code Coverage](#code-coverage)
+  - [codecov.io](#codecovio)
+  - [View the html report](#view-the-html-report)
+  - [View the report after testing](#view-the-report-after-testing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -38,3 +42,20 @@ module.exports = function(config) {
   config = generateKarmaConfig(config);
 };
 ```
+
+## Code Coverage
+lcov, json, and html coverage reports will be generated in `test/dist/coverage` after a test run.
+
+### codecov.io
+1. install codecov globally in your ci of choice
+2. run `codecov -f test/dist/coverage/lcov.info` on your ci after testing
+
+### View the html report
+> NOTE: When running as a static server you will have to generate the coverage report by going to `localhost:9999/test` before you can visit the coverage report.
+1. Run your unit tests
+2. open `test/dist/coverage/index.html`
+
+### View the report after testing
+* simply run `cat test/dist/coverage/text.txt` or if you want a cross platform way use `shx`. `shx cat test/dist/coverage/text.txt`
+
+
