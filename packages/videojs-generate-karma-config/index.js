@@ -1,14 +1,18 @@
 /* eslint-disable no-console, camelcase */
 const path = require('path');
-const karmaPlugins = [];
+const karmaPlugins = ['karma-*'];
 const libPkg = require('./package.json');
 
-// dynamically require  all local karma plugins
+// dynamically require karma plugins from `videojs-generate-karma-config`
+// as karma-* only works on project local plugins.
 Object.keys(libPkg.dependencies).forEach(function(p) {
   if ((/^karma-/).test(p)) {
     karmaPlugins.push(require(p));
   }
 });
+
+/* shared base browsers */
+const customLaunchers = {};
 
 /* browsers to run on teamcity */
 const teamcityLaunchers = {};
@@ -63,16 +67,84 @@ const browserstackLaunchers = {
 /* browsers to run on travis */
 const travisLaunchers = {
   travisFirefox: {
-    base: 'Firefox'
+    base: 'FirefoxHeadless'
   },
   travisChrome: {
-    base: 'Chrome',
+    base: 'ChromeHeadless',
     flags: ['--no-sandbox']
   }
 };
 
-module.exports = function(config) {
+module.exports = function(config, options = {}) {
   const pkg = require(path.join(process.cwd(), 'package.json'));
+
+  // set defaults
+  const settings = {
+    serverBrowsers: ['ChromeHeadless'],
+    customLaunchers,
+    travisLaunchers,
+    browserstackLaunchers,
+    teamcityLaunchers,
+    preferHeadless: true,
+    browsers: (browsers) => browsers,
+    detectBrowsers: true,
+    files: [
+      'node_modules/video.js/dist/video-js.css',
+      'dist/*.css',
+      'node_modules/sinon/pkg/sinon.js',
+      'node_modules/video.js/dist/video.js',
+      'test/dist/bundle.js'
+    ]
+  };
+
+  // options that are passed as values
+  ['detectBrowsers', 'preferHeadless', 'browsers'].forEach(function(k) {
+    if (typeof options[k] !== 'undefined') {
+      settings[k] = options[k];
+    }
+  });
+
+  // if prefer headless is false, set defalts to non headless browsers
+  if (settings.preferHeadless === false) {
+    settings.serverBrowsers = ['Chrome'];
+    settings.travisLaunchers = {
+      travisFirefox: {
+        base: 'Firefox'
+      },
+      travisChrome: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    };
+  }
+
+  // options that are passed as functions
+  [
+    'customLaunchers',
+    'travisLaunchers',
+    'browserstackLaunchers',
+    'teamcityLaunchers',
+    'serverBrowsers',
+    'files'
+  ].forEach(function(k) {
+    if (!options[k]) {
+      return;
+    }
+
+    // pass default settings to the options function
+    settings[k] = options[k](settings[k]);
+  });
+
+  // detect if we are being run in "server mode" with --no-single-run
+  let serverMode = false;
+
+  for (let i = 0; i < process.argv.length; i++) {
+    const arg = process.argv[i];
+
+    if ((/^(--no-single-run|--noSingleRun|--no-singleRun|--single-run=false|--singleRun=false)$/i).test(arg)) {
+      serverMode = true;
+    }
+  }
 
   config.set({
     frameworks: ['qunit', 'detectBrowsers'],
@@ -83,16 +155,18 @@ module.exports = function(config) {
       {match: '.*', name: 'Expires', value: '0'}
     ],
     customLaunchers: Object.assign(
-      {},
-      travisLaunchers,
-      teamcityLaunchers,
-      browserstackLaunchers
+      settings.customLaunchers,
+      settings.travisLaunchers,
+      settings.teamcityLaunchers,
+      settings.browserstackLaunchers
     ),
     client: {clearContext: false, qunit: {showUI: true, testTimeout: 5000}},
 
     detectBrowsers: {
+      preferHeadless: settings.preferHeadless,
       enabled: false,
-      usePhantomJS: false
+      usePhantomJS: false,
+      postDetection: settings.browsers
     },
     browserStack: {
       project: process.env.TEAMCITY_PROJECT_NAME || pkg.name,
@@ -118,13 +192,7 @@ module.exports = function(config) {
         {type: 'text', dir: '.', subdir: 'test/dist/coverage', file: 'text.txt'}
       ]
     },
-    files: [
-      'node_modules/video.js/dist/video-js.css',
-      'dist/*.css',
-      'node_modules/sinon/pkg/sinon.js',
-      'node_modules/video.js/dist/video.js',
-      'test/dist/bundle.js'
-    ],
+    files: settings.files,
     port: 9999,
     urlRoot: '/test/',
     middleware: ['staticServer'],
@@ -133,7 +201,7 @@ module.exports = function(config) {
     autoWatch: false,
     singleRun: true,
     concurrency: Infinity,
-
+    browserDisconnectTolerance: 3,
     captureTimeout: 30000,
     browserNoActivityTimeout: 300000
   });
@@ -142,11 +210,11 @@ module.exports = function(config) {
 
   // determine what browsers should be run on this environment
   if (process.env.BROWSER_STACK_USERNAME) {
-    config.browsers = Object.keys(browserstackLaunchers);
+    config.browsers = Object.keys(settings.browserstackLaunchers);
   } else if (process.env.TRAVIS) {
-    config.browsers = Object.keys(travisLaunchers);
+    config.browsers = Object.keys(settings.travisLaunchers);
   } else if (process.env.TEAMCITY_VERSION) {
-    config.browsers = Object.keys(teamcityLaunchers);
+    config.browsers = Object.keys(settings.teamcityLaunchers);
   }
 
   // if running on travis
@@ -168,10 +236,21 @@ module.exports = function(config) {
     config.browserStack.name += process.env.BUILD_NUMBER;
   }
 
-  // If no browsers are specified, we enable `karma-detect-browsers`
-  // this will detect all browsers that are available for testing
-  if (config.browsers !== false && !config.browsers.length) {
+  // in "server mode" if we have "serverBrowsers"
+  if (serverMode && settings.serverBrowsers) {
+    config.browsers = settings.serverBrowsers;
+
+  // if detect browsers is not explicitly disabled, turn it on
+  } else if (settings.detectBrowsers !== false && config.browsers !== false && !config.browsers.length) {
     config.detectBrowsers.enabled = true;
+
+  // otherwise
+  } else if (settings.browsers) {
+    // if browsers is a boolean convert it to an array so postDetection is not confusing
+    if (!Array.isArray(config.browsers)) {
+      config.browsers = [];
+    }
+    config.browsers = settings.browsers(config.browsers);
   }
 
   return config;

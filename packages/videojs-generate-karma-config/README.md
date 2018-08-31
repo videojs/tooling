@@ -20,6 +20,15 @@ Maintenance Status: Stable
 **Table of Contents**
 
 - [Installation](#installation)
+- [Options](#options)
+  - [`browsers`](#browsers)
+  - [`preferHeadless`](#preferheadless)
+  - [`detectBrowsers`](#detectbrowsers)
+  - [`serverBrowsers`](#serverbrowsers)
+  - [`customLaunchers`](#customlaunchers)
+  - [`teamcityLaunchers`](#teamcitylaunchers)
+  - [`travisLaunchers`](#travislaunchers)
+  - [`browserstackLaunchers`](#browserstacklaunchers)
 - [Code Coverage](#code-coverage)
   - [codecov.io](#codecovio)
   - [View the html report](#view-the-html-report)
@@ -38,10 +47,250 @@ Then in your karma config do
 ```js
 const generateKarmaConfig = require('videojs-generate-karma-config');
 
-module.exports = function(config) {
-  config = generateKarmaConfig(config);
+module.exports = function(karmaConfig) {
+  const options = {};
+
+  config = generateKarmaConfig(config, options);
 };
 ```
+
+## Options
+By default all options are passed as the second argument to generateKarmaConfig.
+
+### `browsers`
+
+> Type: `Function`
+> Default: `none`
+
+> NOTE: Be very careful with this option, this will effect ci runs as well.
+
+A function that should take one argument, the array of browsers that are about to run, and return an array of browsers that should run. This is used to manually overide the browsers that should run.
+
+Example with detected browsers:
+
+```js
+module.exports = function(karmaConfig) {
+  const options = {
+    browsers(aboutToRun) {
+      // never test on Safari
+      return aboutToRun.filter(function(launcherName) {
+        return launcherName !== 'Safari';
+      });
+    }
+  };
+
+  config = generateKarmaConfig(config, options);
+};
+```
+
+### `preferHeadless`
+
+> Type: `Boolean`
+> Default: `true`
+
+If we should prefer running headless browsers. This will change the defaults for `travisLaunchers` and `serverBrowsers` as well as automatic browser detection. Make sure to handle this in [`postDetection`](###postDetection)
+
+### `detectBrowsers`
+
+> Type: `Boolean`
+> Default: `true`
+
+> Note: If you set this to false, you will probably want to provide browsers using the [`browsers`](###browsers) option.
+
+If we should detect browsers to run automatically. This will only be done when:
+1. We are not running ci browsers (teamcity, browserstack, or travis)
+2. We are not running in `serverMode` (`--no-single-run` passed to karma cli)
+
+### `serverBrowsers`
+
+> Type: `Function`
+> Default: `none`
+
+A function that should return an array of browsers that should run when in static server mode (--single-run=false). It should take one argument: The default serverBrowsers array which is `['ChromeHeadless']` if [`preferHeadless`](###preferHeadless) is true and `['Chrome']` otherwise.
+
+Example:
+
+```js
+module.exports = function(karmaConfig) {
+  const options = {
+    serverBrowsers(defaults) {
+      serverBrowsers.push('myTestLauncher');
+
+      return serverBrowsers;
+    }
+  };
+
+  config = generateKarmaConfig(config, options);
+};
+```
+
+### `customLaunchers`
+
+> Type: `Function`
+> Default: `none`
+
+A function that should return an object of karma custom launchers. It should take one argument: The default custom launchers object which is: `{}`;
+
+Example:
+
+```js
+module.exports = function(karmaConfig) {
+  const options = {
+    customLaunchers(defaults) {
+      return Object.assign(defaults, {
+        myTestLauncher: {
+          base: 'ChromeHeadless'
+        }
+      };
+    }
+  };
+
+  config = generateKarmaConfig(config, options);
+};
+```
+
+### `teamcityLaunchers`
+
+> Type: `Function`
+> Default: `none`
+
+> NOTE: All browsers contained from this object will be run on teamcity, unless BROWSER_STACK_USERNAME is in the enviornment!
+
+A function that should return an object of karma custom launchers, that should be run on teamcity. It should take one argument: The default custom launchers object which is: `{}`;
+
+Example:
+
+```js
+module.exports = function(karmaConfig) {
+  const options = {
+    teamcityLaunchers(defaults) {
+      // add another browser to teamcity testing
+      return Object.assign(defaults, {
+        myTestLauncher: {
+          base: 'ChromeHeadless'
+        }
+      };
+    }
+  };
+
+  config = generateKarmaConfig(config, options);
+};
+```
+
+### `travisLaunchers`
+
+> Type: `Function`
+> Default: `none`
+
+> NOTE: All browsers contained from this object will be run on travis, unless BROWSER_STACK_USERNAME is in the enviornment!
+
+A function that should return an object containing karma custom launchers, that should all be run on travis. It should take one argument: The default travis launchers object which is:
+
+> Note: the base will change to non-headless browsers if [`preferHeadless`](###preferHeadless) is set to false.
+```js
+{
+  travisFirefox: {
+    base: 'FirefoxHeadless'
+  },
+  travisChrome: {
+    base: 'ChromeHeadless',
+    flags: ['--no-sandbox']
+  }
+
+}
+```
+
+Example:
+
+```js
+module.exports = function(karmaConfig) {
+  const options = {
+    travisLaunchers(defaults) {
+      // add another browser to travis testing
+      return Object.assign(defaults, {
+        myTestLauncher: {
+          base: 'ChromeHeadless'
+        }
+      };
+    }
+  };
+
+  config = generateKarmaConfig(config, options);
+};
+```
+
+### `browserstackLaunchers`
+
+> Type: `Function`
+> Default: `none`
+
+> NOTE: all browsers contained in this list will be run if there is an enviornment variable called BROWSER_STACK_USERNAME present!
+
+A function that should return an object containing karma custom launchers, that should all be run on browserstack. It should take one argument: The default browserstack launchers object which is:
+```js
+{
+  bsChrome: {
+    base: 'BrowserStack',
+    browser: 'chrome',
+    os: 'Windows',
+    os_version: '10'
+  },
+
+  bsFirefox: {
+    base: 'BrowserStack',
+    browser: 'firefox',
+    os: 'Windows',
+    os_version: '10'
+  },
+
+  bsSafariSierra: {
+    base: 'BrowserStack',
+    browser: 'safari',
+    os: 'OS X',
+    os_version: 'Sierra'
+  },
+
+  bsEdgeWin10: {
+    base: 'BrowserStack',
+    browser: 'edge',
+    os: 'Windows',
+    os_version: '10'
+  },
+
+  bsIE11Win10: {
+    base: 'BrowserStack',
+    browser: 'ie',
+    browser_version: '11',
+    os: 'Windows',
+    os_version: '10'
+  },
+
+  bsIE11Win7: {
+    base: 'BrowserStack',
+    browser: 'ie',
+    browser_version: '11',
+    os: 'Windows',
+    os_version: '7'
+  }
+}
+```
+
+```js
+module.exports = function(karmaConfig) {
+  const options = {
+    BrowserstackLaunchers(defaults) {
+      // only test on Edge windows 10
+      return {
+        bsEdgeWin10: defaults.bsEdgeWin10;
+      };
+    }
+  };
+
+  config = generateKarmaConfig(config, options);
+};
+```
+
+For more information on [browserstack launchers see the docs](https://github.com/karma-runner/karma-browserstack-launcher).
 
 ## Code Coverage
 lcov, json, and html coverage reports will be generated in `test/dist/coverage` after a test run.
@@ -51,7 +300,7 @@ lcov, json, and html coverage reports will be generated in `test/dist/coverage` 
 2. run `codecov -f test/dist/coverage/lcov.info` on your ci after testing
 
 ### View the html report
-> NOTE: When running as a static server you will have to generate the coverage report by going to `localhost:9999/test` before you can visit the coverage report.
+> NOTE: When running as a static server the "serverBrowsers" will have to finish running before you see this. See [serverBrowsers](###serverBrowsers)
 1. Run your unit tests
 2. open `test/dist/coverage/index.html`
 
