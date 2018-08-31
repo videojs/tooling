@@ -1,3 +1,19 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/videojs/videojs-generate-karma-config/compare/v2.0.0...v3.0.0) (2018-08-31)
+
+### Features
+
+* Prefer headless browsers and add options ([#3](https://github.com/videojs/videojs-generate-karma-config/issues/3)) ([5d10adc](https://github.com/videojs/videojs-generate-karma-config/commit/5d10adc))
+
+### Chores
+
+* upgrade husky ([3783653](https://github.com/videojs/videojs-generate-karma-config/commit/3783653))
+
+
+### BREAKING CHANGES
+
+* We now prefer headless browsers by default
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/videojs/videojs-generate-karma-config/compare/v1.0.1...v2.0.0) (2018-08-28)
 
