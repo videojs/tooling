@@ -1,0 +1,1 @@
+# videojs-verify-generator-plugin
