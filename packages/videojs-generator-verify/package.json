@@ -1,6 +1,6 @@
 {
   "name": "videojs-generator-verify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A tool to verify that a generator-videojs-plugin project is ready for publish.",
   "main": "src/index.js",
   "bin": {
