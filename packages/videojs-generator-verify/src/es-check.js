@@ -35,18 +35,18 @@ const runEsCheck = function(cwd) {
     es5Patterns.push('dist/lang/*.js');
   }
 
-  return promiseSpawn(esCheck, ['es5', '--verbose', 'true'].concat(es5Patterns), {cwd}).then(function(result) {
-    shell.rm('-f', tempFile);
+  const cleanup = () => shell.rm('-f', tempFile);
 
+  process.on('SIGINT', cleanup);
+  process.on('SIGQUIT', cleanup);
+  process.on('exit', cleanup);
+
+  return promiseSpawn(esCheck, ['es5', '--verbose', 'true'].concat(es5Patterns), {cwd}).then(function(result) {
     if (result.status === 0) {
       return Promise.resolve({status: 0, text});
     }
 
     return Promise.resolve({status: 1, text: `${text} error:\n${result.out.trim()}`});
-  }).catch(function(e) {
-    // remove tmp file
-    shell.rm('-f', tempFile);
-    return Promise.reject(e);
   });
 };
 

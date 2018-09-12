@@ -1,6 +1,8 @@
 const childProcess = require('child_process');
 
 const promiseSpawn = function(bin, args, options = {}) {
+  process.setMaxListeners(1000);
+
   return new Promise((resolve, reject) => {
     const child = childProcess.spawn(bin, args, options);
 
@@ -17,6 +19,7 @@ const promiseSpawn = function(bin, args, options = {}) {
       stderr += chunk;
       out += chunk;
     });
+
     const kill = () => child.kill();
 
     process.on('SIGINT', kill);
