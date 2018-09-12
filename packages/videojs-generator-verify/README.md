@@ -1,7 +1,7 @@
 # videojs-generator-verify
 
-[![Build Status](https://travis-ci.org/brightcove/videojs-generator-verify.svg?branch=master)](https://travis-ci.org/brightcove/videojs-generator-verify)
-[![Greenkeeper badge](https://badges.greenkeeper.io/brightcove/videojs-generator-verify.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/videojs/videojs-generator-verify.svg?branch=master)](https://travis-ci.org/videojs/videojs-generator-verify)
+[![Greenkeeper badge](https://badges.greenkeeper.io/videojs/videojs-generator-verify.svg)](https://greenkeeper.io/)
 [![Slack Status](http://slack.videojs.com/badge.svg)](http://slack.videojs.com)
 
 [![NPM](https://nodei.co/npm/videojs-generator-verify.png?downloads=true&downloadRank=true)](https://nodei.co/npm/videojs-generator-verify/)
