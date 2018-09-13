@@ -1,3 +1,10 @@
+<a name="1.0.4"></a>
+## [1.0.4](https://github.com/videojs/videojs-generator-verify/compare/v1.0.3...v1.0.4) (2018-09-13)
+
+### Chores
+
+* **package:** update es-check to v4, add not-prerelease ([0b1cc40](https://github.com/videojs/videojs-generator-verify/commit/0b1cc40))
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/videojs/videojs-generator-verify/compare/v1.0.2...v1.0.3) (2018-09-12)
 
