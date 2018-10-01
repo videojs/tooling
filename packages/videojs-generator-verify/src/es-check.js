@@ -15,6 +15,11 @@ const runEsCheck = function(cwd) {
   if (!shell.test('-d', distDir) || !shell.ls(path.join(distDir, '*.es.js')).length) {
     return Promise.resolve({status: 1, text: `${text} error:\nno dist files`});
   }
+
+  // get all files except es dist, which we handle below
+  const es5Patterns = shell.ls('dist/*.js')
+    .filter((f) => !(/.es.js$/).test(f));
+
   // we have to remove import/export from our es file
   // as its technically es6, due to import/export, but we transpile
   // it to es5 for easier usage, and we want to check
@@ -24,10 +29,7 @@ const runEsCheck = function(cwd) {
     .sed(/^export .*;/g, '')
     .to(tempFile);
 
-  const es5Patterns = [
-    'dist/!(*.es.js|*.css)',
-    tempFile
-  ];
+  es5Patterns.push(tempFile);
 
   // check for lang file dir, and that lang files exist
   if (shell.test('-d', path.join(cwd, 'dist', 'lang')) &&
