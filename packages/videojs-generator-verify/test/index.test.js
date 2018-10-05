@@ -21,7 +21,8 @@ test.before((t) => {
   Object.keys(pkg.bin).forEach(function(binName) {
     const binPath = pkg.bin[binName];
 
-    shell.ln('-sf',
+    shell.ln(
+      '-sf',
       path.join(BASE_DIR, binPath),
       path.join(FIXTURE_DIR, 'node_modules', '.bin', binName)
     );

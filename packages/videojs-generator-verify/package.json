@@ -24,11 +24,13 @@
   "scripts": {
     "lint": "vjsstandard",
     "pretest": "npm run lint",
-    "test": "ava test/index.test.js",
+    "test": "npm run test:unit && npm run test:verify",
+    "test:unit": "ava test/index.test.js",
+    "test:verify": "./src/cli.js --skip-es-check --verbose",
     "preversion": "npm test",
     "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
     "update-changelog": "conventional-changelog -p videojs -i CHANGELOG.md -s",
-    "prepublishOnly": "./src/cli.js --skip-es-check"
+    "prepublishOnly": "npm run test:verify"
   },
   "lint-staged": {
     "*.js": [
@@ -55,7 +57,7 @@
     "not-prerelease": "^1.0.1",
     "npm-merge-driver-install": "^1.0.0",
     "uuid": "^3.3.2",
-    "videojs-standard": "^7.0.1"
+    "videojs-standard": "^8.0.2"
   },
   "husky": {
     "hooks": {
