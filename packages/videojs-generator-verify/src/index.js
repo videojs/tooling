@@ -9,6 +9,7 @@ const pkgCanInstall = require('./pkg-can-install.js');
 
 const CHECK_MARK = colorette.green('✔');
 const CROSS_MARK = colorette.red('✘');
+const SKIP_MARK = colorette.yellow('→');
 
 const verify = function(options) {
   const log = (...args) => options.verbose && !options.quiet && console.log.apply(null, args);
@@ -38,6 +39,8 @@ const verify = function(options) {
 
     if (!options.skipEsCheck) {
       promises.push(esCheck(options.dir).then(useResult));
+    } else {
+      log(`${SKIP_MARK} - ${esCheck.text}`);
     }
 
     return resolve(Promise.all(promises));

@@ -3,9 +3,10 @@ const path = require('path');
 const shell = require('shelljs');
 const promiseSpawn = require('./promise-spawn.js');
 
+const text = 'Dist files have the correct js syntax';
+
 /* run the es check tests */
 const runEsCheck = function(cwd) {
-  const text = 'Dist files have the correct js syntax';
 
   const esCheck = require.resolve('es-check');
   const randomString = crypto.randomBytes(20).toString('hex');
@@ -51,5 +52,7 @@ const runEsCheck = function(cwd) {
     return Promise.resolve({status: 1, text: `${text} error:\n${result.out.trim()}`});
   });
 };
+
+runEsCheck.text = text;
 
 module.exports = runEsCheck;

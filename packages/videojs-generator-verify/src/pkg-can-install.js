@@ -1,7 +1,8 @@
 const promiseSpawn = require('./promise-spawn');
 
+const text = 'Package can be installed after publish';
+
 const runPkgCanInstall = function(cwd) {
-  const text = 'Package can be installed after publish';
   const pkgCanInstall = require.resolve('pkg-can-install');
 
   return promiseSpawn(pkgCanInstall, [], {cwd}).then(function(result) {
@@ -11,5 +12,7 @@ const runPkgCanInstall = function(cwd) {
     return Promise.resolve({status: 1, text: `${text} error:\n${result.stderr.trim()}`});
   });
 };
+
+runPkgCanInstall.text = text;
 
 module.exports = runPkgCanInstall;
