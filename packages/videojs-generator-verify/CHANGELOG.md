@@ -1,3 +1,14 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/videojs/videojs-generator-verify/compare/v1.0.5...v1.1.0) (2018-10-05)
+
+### Features
+
+* add logging for skipped tests, during verbose ([6ce559b](https://github.com/videojs/videojs-generator-verify/commit/6ce559b))
+
+### Chores
+
+* **package:** update dependencies ([796b4e0](https://github.com/videojs/videojs-generator-verify/commit/796b4e0))
+
 <a name="1.0.5"></a>
 ## [1.0.5](https://github.com/videojs/videojs-generator-verify/compare/v1.0.4...v1.0.5) (2018-10-01)
 
