@@ -1,3 +1,10 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/videojs/videojs-generate-karma-config/compare/v3.0.0...v3.1.0) (2018-10-24)
+
+### Bug Fixes
+
+* add safari tech preview launcher ([#7](https://github.com/videojs/videojs-generate-karma-config/issues/7)) ([08c014a](https://github.com/videojs/videojs-generate-karma-config/commit/08c014a)), closes [#6](https://github.com/videojs/videojs-generate-karma-config/issues/6)
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/videojs/videojs-generate-karma-config/compare/v2.0.0...v3.0.0) (2018-08-31)
 
