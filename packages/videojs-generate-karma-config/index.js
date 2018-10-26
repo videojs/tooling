@@ -202,6 +202,7 @@ module.exports = function(config, options = {}) {
     singleRun: true,
     concurrency: Infinity,
     browserDisconnectTolerance: 3,
+    browserDisconnectTimeout: 300000,
     captureTimeout: 30000,
     browserNoActivityTimeout: 300000
   });
