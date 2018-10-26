@@ -177,8 +177,7 @@ module.exports = function(config, options = {}) {
     },
     browserStack: {
       project: process.env.TEAMCITY_PROJECT_NAME || pkg.name,
-      name: '',
-      build: process.env.TRAVIS_BUILD_NUMBER || process.env.BUILD_NUMBER,
+      name: process.env.TEAMCITY_PROJECT_NAME || pkg.name,
       pollingTimeout: 30000,
       captureTimeout: 600,
       timeout: 600
@@ -227,7 +226,7 @@ module.exports = function(config, options = {}) {
 
   // if running on travis
   if (process.env.TRAVIS) {
-    config.browserStack.name = process.env.TRAVIS_BUILD_NUMBER;
+    config.browserStack.name = process.env.TRAVIS_BUILD_NUMBER || process.env.BUILD_NUMBER;
     if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
       config.browserStack.name += ' ';
       config.browserStack.name += process.env.TRAVIS_PULL_REQUEST;
@@ -244,6 +243,9 @@ module.exports = function(config, options = {}) {
     config.browserStack.name += '_';
     config.browserStack.name += process.env.BUILD_NUMBER;
   }
+
+  // set the build to the name for more information about a build
+  config.browserStack.build = config.browserStack.name;
 
   // in "server mode" if we have "serverBrowsers"
   if (serverMode && settings.serverBrowsers) {
