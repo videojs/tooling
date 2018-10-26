@@ -221,6 +221,7 @@ module.exports = function(config, options = {}) {
   if (process.env.TRAVIS) {
     config.browserStack.name = process.env.TRAVIS_BUILD_NUMBER;
     if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
+      config.browserStack.name += ' ';
       config.browserStack.name += process.env.TRAVIS_PULL_REQUEST;
       config.browserStack.name += ' ';
       config.browserStack.name += process.env.TRAVIS_PULL_REQUEST_BRANCH;
