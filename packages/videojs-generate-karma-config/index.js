@@ -33,11 +33,18 @@ const browserstackLaunchers = {
     os_version: '10'
   },
 
-  bsSafariSierra: {
+  bsSafariMojave: {
     base: 'BrowserStack',
     browser: 'safari',
     os: 'OS X',
-    os_version: 'Sierra'
+    os_version: 'Mojave'
+  },
+
+  bsSafariElCapitan: {
+    base: 'BrowserStack',
+    browser: 'safari',
+    os: 'OS X',
+    os_version: 'El Capitan'
   },
 
   bsEdgeWin10: {
