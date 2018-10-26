@@ -21,6 +21,7 @@ Maintenance Status: Stable
 
 - [Installation](#installation)
 - [Options](#options)
+  - [`files`](#files)
   - [`browsers`](#browsers)
   - [`preferHeadless`](#preferheadless)
   - [`detectBrowsers`](#detectbrowsers)
@@ -56,6 +57,41 @@ module.exports = function(karmaConfig) {
 
 ## Options
 By default all options are passed as the second argument to generateKarmaConfig.
+
+### `files`
+
+> Type: `Function`
+> Default: `none`
+> NOTE: Be very careful with this option, this will effect ci runs as well.
+
+A function that should take one argument, the array of files that are included, and return an array of files that should be included. This is used to manually overide the files that are included ina test run
+
+Default files that will be passed to you function
+```js
+[
+  'node_modules/video.js/dist/video-js.css',
+  'dist/*.css',
+  'node_modules/sinon/pkg/sinon.js',
+  'node_modules/video.js/dist/video.js',
+  'test/dist/bundle.js'
+]
+```
+
+Example with files function:
+
+```js
+module.exports = function(karmaConfig) {
+  const options = {
+    files(defaultFiles) {
+      return defaultFiles.concat([
+        'some-other-file.js'
+      ]);
+    }
+  };
+
+  config = generateKarmaConfig(config, options);
+};
+```
 
 ### `browsers`
 
