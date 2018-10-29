@@ -30,6 +30,7 @@ Maintenance Status: Stable
   - [`teamcityLaunchers`](#teamcitylaunchers)
   - [`travisLaunchers`](#travislaunchers)
   - [`browserstackLaunchers`](#browserstacklaunchers)
+  - [`coverage`](#coverage)
 - [Code Coverage](#code-coverage)
   - [codecov.io](#codecovio)
   - [View the html report](#view-the-html-report)
@@ -326,10 +327,29 @@ module.exports = function(karmaConfig) {
 };
 ```
 
+### `coverage`
+
+> Type: `Function`
+> Default: `true`
+
+If we should report test coverage or not, by default we do.
+
+Example with coverage turned off
+
+```js
+module.exports = function(karmaConfig) {
+  const options = {
+    coverage: false
+  };
+
+  config = generateKarmaConfig(config, options);
+};
+```
+
 For more information on [browserstack launchers see the docs](https://github.com/karma-runner/karma-browserstack-launcher).
 
 ## Code Coverage
-lcov, json, and html coverage reports will be generated in `test/dist/coverage` after a test run.
+lcov, json, and html coverage reports will be generated in `test/dist/coverage` after a test run. Unless coverage is set to false.
 
 ### codecov.io
 1. install codecov globally in your ci of choice

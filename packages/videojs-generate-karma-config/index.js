@@ -95,6 +95,7 @@ module.exports = function(config, options = {}) {
     preferHeadless: true,
     browsers: (browsers) => browsers,
     detectBrowsers: true,
+    coverage: typeof options.coverage === 'boolean' ? options.coverage : true,
     files: [
       'node_modules/video.js/dist/video-js.css',
       'dist/*.css',
@@ -262,6 +263,15 @@ module.exports = function(config, options = {}) {
       config.browsers = [];
     }
     config.browsers = settings.browsers(config.browsers);
+  }
+
+  if (settings.coverage === false) {
+    delete config.coverageReporter;
+    // remove coverage
+    config.reporters.splice(config.reporters.indexOf('coverage'), 1);
+
+    // remove karma-coverage
+    config.plugins.splice(config.plugins.indexOf('karma-coverage'), 1);
   }
 
   return config;
