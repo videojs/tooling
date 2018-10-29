@@ -1,6 +1,6 @@
 {
   "name": "videojs-generate-karma-config",
-  "version": "3.1.0",
+  "version": "4.0.2",
   "description": "Generate a standard karma config, so that plugins don't need the same script in every repository.",
   "main": "index.js",
   "scripts": {
