@@ -20,54 +20,68 @@ const teamcityLaunchers = {};
 /* browsers to run on browserstack */
 const browserstackLaunchers = {
   bsChrome: {
-    base: 'BrowserStack',
-    browser: 'chrome',
-    os: 'Windows',
-    os_version: '10'
+    'base': 'BrowserStack',
+    'browser': 'chrome',
+    'os': 'Windows',
+    'os_version': '10',
+    'browserstack.local': 'false',
+    'browserstack.video': 'false'
   },
 
   bsFirefox: {
-    base: 'BrowserStack',
-    browser: 'firefox',
-    os: 'Windows',
-    os_version: '10'
+    'base': 'BrowserStack',
+    'browser': 'firefox',
+    'os': 'Windows',
+    'os_version': '10',
+    'browserstack.local': 'false',
+    'browserstack.video': 'false'
   },
 
   bsSafariMojave: {
-    base: 'BrowserStack',
-    browser: 'safari',
-    os: 'OS X',
-    os_version: 'Mojave'
+    'base': 'BrowserStack',
+    'browser': 'safari',
+    'os': 'OS X',
+    'os_version': 'Mojave',
+    'browserstack.local': 'false',
+    'browserstack.video': 'false'
   },
 
   bsSafariElCapitan: {
-    base: 'BrowserStack',
-    browser: 'safari',
-    os: 'OS X',
-    os_version: 'El Capitan'
+    'base': 'BrowserStack',
+    'browser': 'safari',
+    'os': 'OS X',
+    'os_version': 'El Capitan',
+    'browserstack.local': 'false',
+    'browserstack.video': 'false'
   },
 
   bsEdgeWin10: {
-    base: 'BrowserStack',
-    browser: 'edge',
-    os: 'Windows',
-    os_version: '10'
+    'base': 'BrowserStack',
+    'browser': 'edge',
+    'os': 'Windows',
+    'os_version': '10',
+    'browserstack.local': 'false',
+    'browserstack.video': 'false'
   },
 
   bsIE11Win10: {
-    base: 'BrowserStack',
-    browser: 'ie',
-    browser_version: '11',
-    os: 'Windows',
-    os_version: '10'
+    'base': 'BrowserStack',
+    'browser': 'ie',
+    'browser_version': '11',
+    'os': 'Windows',
+    'os_version': '10',
+    'browserstack.local': 'false',
+    'browserstack.video': 'false'
   },
 
   bsIE11Win7: {
-    base: 'BrowserStack',
-    browser: 'ie',
-    browser_version: '11',
-    os: 'Windows',
-    os_version: '7'
+    'base': 'BrowserStack',
+    'browser': 'ie',
+    'browser_version': '11',
+    'os': 'Windows',
+    'os_version': '7',
+    'browserstack.local': 'false',
+    'browserstack.video': 'false'
   }
 };
 
