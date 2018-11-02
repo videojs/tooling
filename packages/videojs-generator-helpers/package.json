@@ -16,9 +16,6 @@
     "node": ">=8"
   },
   "scripts": {
-    "postinstall": "npm-run-all postinstall:*",
-    "postinstall:npm-merge": "npm-merge-driver-install",
-    "postinstall:husky": "node node_modules/husky/husky.js install",
     "lint": "vjsstandard",
     "pretest": "npm run lint",
     "test": "npm run test:unit && npm run test:verify",
@@ -29,24 +26,10 @@
     "update-changelog": "conventional-changelog -p videojs -i CHANGELOG.md -s",
     "prepublishOnly": "npm run test:verify"
   },
-  "bin": {
-    "conventional-changelog": "node_modules/.bin/conventional-changelog",
-    "is-prerelease": "node_modules/.bin/is-prerelease",
-    "not-prerelease": "node_modules/.bin/not-prerelease",
-    "lint-staged": "node_modules/.bin/lint-staged",
-    "npm-run-all": "node_modules/.bin/npm-run-all",
-    "run-p": "node_modules/.bin/run-p",
-    "run-s": "node_modules/.bin/run-s",
-    "shx": "node_modules/.bin/shx",
-    "npm-merge-driver-install": "node_modules/.bin/npm-merge-driver-install",
-    "husky-upgrade": "node_modules/.bin/husky-upgrade",
-    "doctoc": "node_modules/.bin/doctoc"
-  },
   "dependencies": {
     "conventional-changelog-cli": "^2.0.5",
     "conventional-changelog-videojs": "^3.0.0",
-    "doctoc": "^1.3.1",
-    "lint-staged": "^8.0.0",
+    "lint-staged": "^8.0.4",
     "not-prerelease": "^1.0.1",
     "npm-merge-driver-install": "^1.1.1",
     "npm-run-all": "^4.1.3",
@@ -55,6 +38,7 @@
   },
   "devDependencies": {
     "ava": "^1.0.0-beta.8",
+    "doctoc": "^1.3.1",
     "shelljs": "^0.8.2",
     "uuid": "^3.3.2",
     "videojs-generator-verify": "~1.1.0",
