@@ -72,16 +72,6 @@ const browserstackLaunchers = {
     'os_version': '10',
     'browserstack.local': 'false',
     'browserstack.video': 'false'
-  },
-
-  bsIE11Win7: {
-    'base': 'BrowserStack',
-    'browser': 'ie',
-    'browser_version': '11',
-    'os': 'Windows',
-    'os_version': '7',
-    'browserstack.local': 'false',
-    'browserstack.video': 'false'
   }
 };
 
