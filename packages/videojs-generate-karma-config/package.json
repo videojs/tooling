@@ -46,7 +46,7 @@
     "karma-safaritechpreview-launcher": "0.0.6",
     "karma-static-server": "^1.0.0",
     "karma-teamcity-reporter": "^1.1.0",
-    "qunit": "^2.8.0"
+    "qunit": "~2.5.1"
   },
   "peerDependencies": {
     "karma": "*"
