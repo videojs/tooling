@@ -1,3 +1,20 @@
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/videojs/videojs-generate-karma-config/compare/v4.0.2...v5.0.0) (2018-11-15)
+
+### Features
+
+* remove IE11 Win7 from testing ([#16](https://github.com/videojs/videojs-generate-karma-config/issues/16)) ([b2bc096](https://github.com/videojs/videojs-generate-karma-config/commit/b2bc096))
+
+### Bug Fixes
+
+* Pin qunit to ~2.5.1 to fix stack trace issues ([#18](https://github.com/videojs/videojs-generate-karma-config/issues/18)) ([2c55b93](https://github.com/videojs/videojs-generate-karma-config/commit/2c55b93))
+* Update deps to fix a few npm audit warnings ([#15](https://github.com/videojs/videojs-generate-karma-config/issues/15)) ([83a8a4f](https://github.com/videojs/videojs-generate-karma-config/commit/83a8a4f))
+
+
+### BREAKING CHANGES
+
+* Remove IE11 Win7
+
 <a name="4.0.2"></a>
 ## [4.0.2](https://github.com/videojs/videojs-generate-karma-config/compare/v3.1.0...v4.0.2) (2018-10-29)
 
