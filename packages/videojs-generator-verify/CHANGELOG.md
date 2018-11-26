@@ -1,3 +1,10 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/videojs/videojs-generator-verify/compare/v1.1.0...v1.2.0) (2018-11-26)
+
+### Chores
+
+* **package:** update es-check to ^5.0.0 ([47a7f8c](https://github.com/videojs/videojs-generator-verify/commit/47a7f8c))
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/videojs/videojs-generator-verify/compare/v1.0.5...v1.1.0) (2018-10-05)
 
