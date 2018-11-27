@@ -35,6 +35,7 @@ Maintenance Status: Stable
   - [codecov.io](#codecovio)
   - [View the html report](#view-the-html-report)
   - [View the report after testing](#view-the-report-after-testing)
+- [Overriding Configuration Options](#overriding-configuration-options)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -49,7 +50,7 @@ Then in your karma config do
 ```js
 const generateKarmaConfig = require('videojs-generate-karma-config');
 
-module.exports = function(karmaConfig) {
+module.exports = function(config) {
   const options = {};
 
   config = generateKarmaConfig(config, options);
@@ -81,7 +82,7 @@ Default files that will be passed to you function
 Example with files function:
 
 ```js
-module.exports = function(karmaConfig) {
+module.exports = function(config) {
   const options = {
     files(defaultFiles) {
       return defaultFiles.concat([
@@ -106,7 +107,7 @@ A function that should take one argument, the array of browsers that are about t
 Example with detected browsers:
 
 ```js
-module.exports = function(karmaConfig) {
+module.exports = function(config) {
   const options = {
     browsers(aboutToRun) {
       // never test on Safari
@@ -148,7 +149,7 @@ A function that should return an array of browsers that should run when in stati
 Example:
 
 ```js
-module.exports = function(karmaConfig) {
+module.exports = function(config) {
   const options = {
     serverBrowsers(defaults) {
       serverBrowsers.push('myTestLauncher');
@@ -171,7 +172,7 @@ A function that should return an object of karma custom launchers. It should tak
 Example:
 
 ```js
-module.exports = function(karmaConfig) {
+module.exports = function(config) {
   const options = {
     customLaunchers(defaults) {
       return Object.assign(defaults, {
@@ -198,7 +199,7 @@ A function that should return an object of karma custom launchers, that should b
 Example:
 
 ```js
-module.exports = function(karmaConfig) {
+module.exports = function(config) {
   const options = {
     teamcityLaunchers(defaults) {
       // add another browser to teamcity testing
@@ -240,7 +241,7 @@ A function that should return an object containing karma custom launchers, that 
 Example:
 
 ```js
-module.exports = function(karmaConfig) {
+module.exports = function(config) {
   const options = {
     travisLaunchers(defaults) {
       // add another browser to travis testing
@@ -313,7 +314,7 @@ A function that should return an object containing karma custom launchers, that 
 ```
 
 ```js
-module.exports = function(karmaConfig) {
+module.exports = function(config) {
   const options = {
     BrowserstackLaunchers(defaults) {
       // only test on Edge windows 10
@@ -337,7 +338,7 @@ If we should report test coverage or not, by default we do.
 Example with coverage turned off
 
 ```js
-module.exports = function(karmaConfig) {
+module.exports = function(config) {
   const options = {
     coverage: false
   };
@@ -363,4 +364,19 @@ lcov, json, and html coverage reports will be generated in `test/dist/coverage` 
 ### View the report after testing
 * simply run `cat test/dist/coverage/text.txt` or if you want a cross platform way use `shx`. `shx cat test/dist/coverage/text.txt`
 
+## Overriding Configuration Options
 
+Any Karma settings that have not been exposed as an option can be overriden after calling `generateKarmaConfig`.
+
+Example:
+
+```js
+module.exports = function(config) {
+  const options = {};
+
+  config = generateKarmaConfig(config, options);
+
+  // The reporters setting is not exposed as an option currently
+  config.reporters = ['spec'];
+};
+```
