@@ -1,3 +1,14 @@
+<a name="5.0.1"></a>
+## [5.0.1](https://github.com/videojs/videojs-generate-karma-config/compare/v5.0.0...v5.0.1) (2019-01-10)
+
+### Chores
+
+* **package:** update all dependencies ([#22](https://github.com/videojs/videojs-generate-karma-config/issues/22)) ([ceb0016](https://github.com/videojs/videojs-generate-karma-config/commit/ceb0016))
+
+### Documentation
+
+* update README to show how to override config settings ([#21](https://github.com/videojs/videojs-generate-karma-config/issues/21)) ([1fd9c48](https://github.com/videojs/videojs-generate-karma-config/commit/1fd9c48))
+
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/videojs/videojs-generate-karma-config/compare/v4.0.2...v5.0.0) (2018-11-15)
 
