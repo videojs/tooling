@@ -16,13 +16,11 @@
     "node": ">=8"
   },
   "scripts": {
-    "lint": "vjsstandard",
-    "pretest": "npm run lint",
     "test": "vjsverify --skip-es-check --verbose",
     "preversion": "npm test",
     "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
     "update-changelog": "conventional-changelog -p videojs -i CHANGELOG.md -s",
-    "prepublishOnly": "npm run test:verify"
+    "prepublishOnly": "npm run test"
   },
   "dependencies": {
     "conventional-changelog-cli": "^2.0.5",
@@ -36,22 +34,6 @@
     "shx": "^0.3.2"
   },
   "devDependencies": {
-    "videojs-generator-verify": "~1.2.0",
-    "videojs-standard": "^8.0.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "vjsstandard --fix",
-      "git add"
-    ],
-    "README.md": [
-      "doctoc",
-      "git add"
-    ]
+    "videojs-generator-verify": "~1.2.0"
   }
 }
