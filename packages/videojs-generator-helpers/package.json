@@ -18,9 +18,7 @@
   "scripts": {
     "lint": "vjsstandard",
     "pretest": "npm run lint",
-    "test": "npm run test:unit && npm run test:verify",
-    "test:unit": "ava test.js",
-    "test:verify": "vjsverify --skip-es-check --verbose",
+    "test": "vjsverify --skip-es-check --verbose",
     "preversion": "npm test",
     "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
     "update-changelog": "conventional-changelog -p videojs -i CHANGELOG.md -s",
@@ -38,9 +36,6 @@
     "shx": "^0.3.2"
   },
   "devDependencies": {
-    "ava": "^1.0.0-beta.8",
-    "shelljs": "^0.8.2",
-    "uuid": "^3.3.2",
     "videojs-generator-verify": "~1.2.0",
     "videojs-standard": "^8.0.2"
   },
