@@ -1,17 +1,17 @@
 {
-  "name": "videojs-generator-helpers",
+  "name": "@videojs/generator-helpers",
   "version": "1.0.0",
   "description": "A package to keep all of our generator helpers packages, so everything can be updated more easily.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/videojs/videojs-generator-helpers"
+    "url": "https://github.com/videojs/generator-helpers"
   },
   "author": "Brandon Casey <brandonocasey@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/videojs/videojs-generator-helpers/issues"
+    "url": "https://github.com/videojs/generator-helpers/issues"
   },
-  "homepage": "https://github.com/videojs/videojs-generator-helpers",
+  "homepage": "https://github.com/videojs/generator-helpers",
   "engine": {
     "node": ">=8"
   },

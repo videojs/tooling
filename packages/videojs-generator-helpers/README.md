@@ -1,7 +1,7 @@
-# videojs-generator-helpers
+# @videojs/generator-helpers
 
-[![Build Status](https://travis-ci.org/videojs/videojs-generator-helpers.svg?branch=master)](https://travis-ci.org/videojs/videojs-generator-helpers)
-[![Greenkeeper badge](https://badges.greenkeeper.io/videoijs/videojs-generator-helpers.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/videojs/generator-helpers.svg?branch=master)](https://travis-ci.org/videojs/generator-helpers)
+[![Greenkeeper badge](https://badges.greenkeeper.io/videojs/generator-helpers.svg)](https://greenkeeper.io/)
 
 A package to keep all of our generator helpers packages, so everything can be updated more easily.
 
@@ -18,7 +18,7 @@ A package to keep all of our generator helpers packages, so everything can be up
 To install run
 
 ```
-npm i --save-dev videojs-generator-helpers
+npm i --save-dev @videojs/generator-helpers
 ```
 
 ## What does it provide/do
