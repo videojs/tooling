@@ -126,7 +126,7 @@ module.exports = function(config) {
 > Type: `Boolean`
 > Default: `true`
 
-If we should prefer running headless browsers. This will change the defaults for `travisLaunchers` and `serverBrowsers` as well as automatic browser detection. Make sure to handle this in [`postDetection`](###postDetection)
+If we should prefer running headless browsers. This will change the defaults for `travisLaunchers` and `serverBrowsers` as well as automatic browser detection. Make sure to handle this in [`browsers`](###browsers)
 
 ### `detectBrowsers`
 
