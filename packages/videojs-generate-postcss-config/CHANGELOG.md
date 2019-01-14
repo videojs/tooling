@@ -1,3 +1,12 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/videojs/videojs-generate-postcss-config/compare/v2.0.1...v2.1.0) (2019-01-14)
+
+### Chores
+
+* update husky ([55cb1a3](https://github.com/videojs/videojs-generate-postcss-config/commit/55cb1a3))
+* update tooling ([0ec89a4](https://github.com/videojs/videojs-generate-postcss-config/commit/0ec89a4))
+* **package:** switch to [@videojs](https://github.com/videojs)/generator-helpers, update postcss-progress ([c7135fc](https://github.com/videojs/videojs-generate-postcss-config/commit/c7135fc))
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/videojs/videojs-generate-postcss-config/compare/v2.0.0...v2.0.1) (2018-08-22)
 
