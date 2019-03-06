@@ -269,7 +269,7 @@ module.exports = function(config, options = {}) {
     config.browsers = settings.browsers(config.browsers);
   }
 
-  if (settings.coverage === false) {
+  if (serverMode || settings.coverage === false) {
     delete config.coverageReporter;
     // remove coverage
     config.reporters.splice(config.reporters.indexOf('coverage'), 1);
