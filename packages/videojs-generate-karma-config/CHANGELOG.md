@@ -1,3 +1,22 @@
+<a name="5.1.0"></a>
+# [5.1.0](https://github.com/videojs/videojs-generate-karma-config/compare/v5.0.2...v5.1.0) (2019-03-06)
+
+### Features
+
+* no coverage report in server mode ([#23](https://github.com/videojs/videojs-generate-karma-config/issues/23)) ([388a6e2](https://github.com/videojs/videojs-generate-karma-config/commit/388a6e2))
+
+### Bug Fixes
+
+* **security:** fix security issues by updating package-lock.json ([9bb5156](https://github.com/videojs/videojs-generate-karma-config/commit/9bb5156))
+
+### Chores
+
+* switch to [@videojs](https://github.com/videojs)/generator-helpers ([351325e](https://github.com/videojs/videojs-generate-karma-config/commit/351325e))
+
+### Documentation
+
+* postDetection was renamed to browsers ([29d8ffd](https://github.com/videojs/videojs-generate-karma-config/commit/29d8ffd))
+
 <a name="5.0.2"></a>
 ## [5.0.2](https://github.com/videojs/videojs-generate-karma-config/compare/v5.0.1...v5.0.2) (2019-01-10)
 
