@@ -1,3 +1,10 @@
+<a name="5.2.0"></a>
+# [5.2.0](https://github.com/videojs/videojs-generate-karma-config/compare/v5.1.0...v5.2.0) (2019-04-12)
+
+### Features
+
+* Use karma-safari-applescript-launcher to prevent `open` dialog in safari ([#25](https://github.com/videojs/videojs-generate-karma-config/issues/25)) ([d37a4d7](https://github.com/videojs/videojs-generate-karma-config/commit/d37a4d7))
+
 <a name="5.1.0"></a>
 # [5.1.0](https://github.com/videojs/videojs-generate-karma-config/compare/v5.0.2...v5.1.0) (2019-03-06)
 
