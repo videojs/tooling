@@ -41,7 +41,7 @@
     "karma-detect-browsers": "^2.2.6",
     "karma-firefox-launcher": "^1.1.0",
     "karma-ie-launcher": "^1.0.0",
-    "karma-qunit": "^2.0.0",
+    "karma-qunit": "^3.1.2",
     "karma-safari-applescript-launcher": "~0.1.0",
     "karma-static-server": "^1.0.0",
     "karma-teamcity-reporter": "^1.1.0",
