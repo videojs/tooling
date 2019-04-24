@@ -1,3 +1,14 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/videojs/generator-helpers/compare/v1.0.0...v1.1.0) (2019-04-24)
+
+### Bug Fixes
+
+* **security:** fix security issues by updating package-lock.json ([48d426c](https://github.com/videojs/generator-helpers/commit/48d426c))
+
+### Chores
+
+* **package:** update to husky@^2.0.0 ([#1](https://github.com/videojs/generator-helpers/issues/1)) ([a7d8bb9](https://github.com/videojs/generator-helpers/commit/a7d8bb9))
+
 <a name="1.0.0"></a>
 # 1.0.0 (2019-01-11)
 
