@@ -1,6 +1,21 @@
 {
   "name": "tooling",
   "private": true,
+  "scripts": {
+    "install": "./scripts/install-local.js",
+    "lint": "./packages/standard/cli.js",
+    "pretest": "npm run lint",
+    "test": "npm run test:packages && npm run test:integration",
+    "test:packages": "./scripts/test-local.js",
+    "test:integration": "./scripts/run-integration-tests.js",
+    "manual": "node scripts/generator-setup.js"
+  },
+  "vjsstandard": {
+    "ignore": [
+      "node_modules/*",
+      "packages/*"
+    ]
+  },
   "devDependencies": {
     "install-local": "^1.0.0",
     "is-ci": "^2.0.0",

@@ -1,75 +1,23 @@
-/* global Promise */
+#!/usr/bin/env node
 /* eslint-disable no-console */
+const runCommand = require('./run-command.js');
 
-const crypto = require('crypto');
-const os = require('os');
 const path = require('path');
 const spawnSync = require('child_process').spawnSync;
-const fs = require('fs');
-const isCi = require('is-ci');
-const lernaList = spawnSync('lerna', ['list', '--json'], {cwd: __dirname});
 const assert = require('assert');
-if (lernaList.status !== 0) {
-  throw new Error('lerna list --json failed, is lerna installed?');
-}
-const packages = JSON.parse(lernaList.stdout.toString()).reduce(function(acc, val) {
-  acc[val.name] = val.location;
-  return acc;
-}, {});
+const debug = require('./debug-logging.js');
+const rootDir = require('./generator-setup.js')({autoCleanup: true});
+const fs = require('fs');
 
-// in a ci or if --debug is passed
-const debug = isCi || [...process.argv].some((arg) => (/^-d|--debug$/.test(arg)));
-const tempDir = path.join(os.tmpdir(), crypto.randomBytes(20).toString('hex'));
-const rootDir = path.join(tempDir, 'videojs-integration-test');
 const spawnOptions = {
   cwd: rootDir,
   env: Object.assign(process.env, {
     NPM_MERGE_DRIVER_IGNORE_CI: true,
-    // set PATH to current env + each lerna packages node_modules/.bin
-    PATH: []
-      .concat([path.join(__dirname, 'node_modules', '.bin')])
-      .concat(Object.values(packages).map((v) => path.join(v, 'node_modules', '.bin')))
-      .concat(process.env.PATH.split(':'))
-      .join(':')
-  }),
-  // inherit makes child stdout and stderr got to parent stdout and stderr
-  // which we only want for debug purposes.
-  stdio: debug ? 'inherit' : 'pipe'
+    // inherit makes child stdout and stderr got to parent stdout and stderr
+    // which we only want for debug purposes.
+    stdio: debug ? 'inherit' : 'pipe'
+  })
 };
-
-const runCommand = function(args, options) {
-  const cmd = args.shift();
-  const command = `${path.basename(cmd)} ${args.join(' ')}`;
-
-  console.log(`** Running '${command}' **`);
-  const retval = spawnSync(cmd, args, spawnOptions);
-
-  if (retval.status !== 0) {
-    const output = retval.error || retval.output.toString();
-
-    console.error(`** FAILURE **`);
-    console.error(output);
-    process.exit(1);
-  }
-};
-
-const cleanup = function() {
-  console.log(`** Cleaning up ${tempDir} **`);
-
-  if (fs.existsSync(tempDir)) {
-    runCommand(['shx', 'rm', '-rf', tempDir], {cwd: __dirname});
-  }
-};
-
-console.log(`** Generating Project in ${rootDir} **`);
-
-['SIGINT', 'SIGHUP', 'SIGQUIT', 'SIGTERM', 'exit', 'uncaughtException'].forEach(function(k) {
-  process.on(k, cleanup);
-});
-
-fs.mkdirSync(tempDir);
-fs.mkdirSync(rootDir);
-runCommand(['yo', packages['generator-videojs-plugin'], '--hurry']);
 
 const pkg = JSON.parse(fs.readFileSync(path.join(rootDir, 'package.json')));
 
@@ -79,10 +27,6 @@ pkg.husky.skipCI = false;
 fs.writeFileSync(path.join(rootDir, 'package.json'), JSON.stringify(pkg));
 
 const commands = [
-  ['git', 'init'],
-  ['npm', 'i', '--package-lock-only'],
-  ['npm', 'ci'],
-  ['install-local'].concat(Object.values(packages)),
   ['npm', 'run', 'docs'],
   ['git', 'add', '--all'],
   ['git', 'commit', '-a', '-m', 'feat: initial release!'],
@@ -103,7 +47,8 @@ const commands = [
   ['git', 'merge', '--no-edit', 'merge-driver-test']
 ];
 
-commands.forEach(runCommand);
+commands.forEach((c) => runCommand(c, spawnOptions));
+
 console.log('** Running \'npm audit\' **');
 // not a test, but useful to log
 spawnSync('npm', ['audit'], spawnOptions);
