@@ -1,0 +1,11 @@
+{
+  "name": "tooling",
+  "private": true,
+  "devDependencies": {
+    "install-local": "^1.0.0",
+    "is-ci": "^2.0.0",
+    "lerna": "^3.10.6",
+    "shx": "^0.3.2",
+    "yo": "^2.0.6"
+  }
+}
